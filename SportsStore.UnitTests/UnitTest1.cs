@@ -150,5 +150,27 @@ namespace SportsStore.UnitTests
             Assert.AreEqual(results[1], "Oranges");
             Assert.AreEqual(results[2], "Plums");
         }
+
+        [TestMethod]
+        public void Can_Selected_Category()
+        {
+            // Arrange - создание mock - хранилища.
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product {ProductID = 1, Name = "P1", Category = "Apples"},
+                new Product {ProductID = 4, Name = "P2", Category = "Oranges"},
+            }.AsQueryable());
+
+            // Arrange - создание контроллера и определение категории выбранного
+            NavController target = new NavController(mock.Object);
+            string categoryToSelect = "Apples";
+
+            // Act - получение и установка категорий
+            string results = target.Menu(categoryToSelect).ViewBag.SelectedCategory;
+
+            // Assert
+            Assert.AreEqual(categoryToSelect, results);
+        }
     }
 }
