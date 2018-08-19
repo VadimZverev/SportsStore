@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SportsStore.Domain.Entities
 {
-    class Cart
+    public class Cart
     {
         private List<CartLine> lineCollection = new List<CartLine>();
 
@@ -51,7 +51,7 @@ namespace SportsStore.Domain.Entities
         }
     }
 
-    class CartLine
+    public class CartLine
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
