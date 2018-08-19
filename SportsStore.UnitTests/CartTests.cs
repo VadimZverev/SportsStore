@@ -135,7 +135,7 @@ namespace SportsStore.UnitTests
             Cart cart = new Cart();
 
             // Arrange - создание контроллера
-            CartController target = new CartController(mock.Object);
+            CartController target = new CartController(mock.Object, null);
 
             // Act - добавление продукта в корзину
             target.AddToCart(cart, 1, null);
@@ -159,7 +159,7 @@ namespace SportsStore.UnitTests
             Cart cart = new Cart();
 
             // Arrange - создание контроллера
-            CartController target = new CartController(mock.Object);
+            CartController target = new CartController(mock.Object, null);
 
             // Act - добавление продукта в корзину
             RedirectToRouteResult result = target.AddToCart(cart, 2, "myUrl");
@@ -176,7 +176,7 @@ namespace SportsStore.UnitTests
             Cart cart = new Cart();
 
             // Arrange - создание контроллера
-            CartController target = new CartController(null);
+            CartController target = new CartController(null, null);
 
             // Act - вызов метода действия Index
             CartIndexViewModel result = (CartIndexViewModel)target.Index(cart, "myUrl")
