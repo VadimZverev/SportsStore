@@ -2,7 +2,7 @@
 
 namespace SportsStore.Domain.Entities
 {
-    class ShippingDetails
+    public class ShippingDetails
     {
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
@@ -21,6 +21,6 @@ namespace SportsStore.Domain.Entities
 
         [Required(ErrorMessage = "Please enter a country name")]
         public string Country { get; set; }
-        public string GiftWrap { get; set; }
+        public bool GiftWrap { get; set; }
     }
 }

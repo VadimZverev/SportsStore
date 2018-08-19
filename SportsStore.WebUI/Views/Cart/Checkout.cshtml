@@ -1,0 +1,30 @@
+﻿@model SportsStore.Domain.Entities.ShippingDetails
+
+@{
+    ViewBag.Title = "SportsStore: Checkout";
+}
+
+<h2>Оформить заказ сейчас</h2>
+Пожалуйста, введите свои данные, и мы отправим товар прямо сейчас!
+@using (Html.BeginForm())
+{
+    <h3>Доставить</h3>
+    <div>Имя: @Html.EditorFor(x => x.Name)</div>
+    <h3>Aдрес</h3>
+    <div>Line 1: @Html.EditorFor(x => x.Line1)</div>
+    <div>Line 2: @Html.EditorFor(x => x.Line2)</div>
+    <div>Line 3: @Html.EditorFor(x => x.Line3)</div>
+    <div>Город: @Html.EditorFor(x => x.City)</div>
+    <div>Штаты: @Html.EditorFor(x => x.State)</div>
+    <div>Почтовый индекс: @Html.EditorFor(x => x.Zip)</div>
+    <div>Страна: @Html.EditorFor(x => x.Country)</div>
+    <h3>Опции</h3>
+    <label>
+        @Html.EditorFor(x => x.GiftWrap)
+        Подарочная упаковка для предметов
+    </label>
+
+    <p align="center">
+        <input class="actionButtons" type="submit" value="Завершить заказ" />
+    </p>
+}
