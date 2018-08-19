@@ -187,5 +187,62 @@ namespace SportsStore.UnitTests
             Assert.AreEqual(result.ReturnUrl, "myUrl");
 
         }
+
+        [TestMethod]
+        public void Cannot_Checkout_Empty_Cart()
+        {
+            // Arrange - создание mock-процесса заказа
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+
+            // Arrange - создание пустой корзины
+            Cart cart = new Cart();
+
+            // Arrange - создание подробностей доставки
+            ShippingDetails shippingDetails = new ShippingDetails();
+
+            // Arrange - создание экземпляра контроллера
+            CartController target = new CartController(null, mock.Object);
+
+            // Act
+            ViewResult result = target.Checkout(cart, shippingDetails);
+
+            // Assert - проверяем, что заказ не прошел к процессу.
+            mock.Verify(m =>
+               m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never());
+
+            // Assert - проверяем, что метод возвращает представление по умолчанию.
+            Assert.AreEqual("", result.ViewName);
+
+            // Assert - проверяем, что мы передаём недопустимую модель в представление.
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+        }
+
+        [TestMethod]
+        public void Can_Checkout_And_Submit_Order()
+        {
+            // Arrange - создание mock-процесса заказа
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+
+            // Arrange - создание корзины c предметами
+            Cart cart = new Cart();
+            cart.AddItem(new Product(), 1);
+
+            // Arrange - создание экземпляра контроллера
+            CartController target = new CartController(null, mock.Object);
+
+            // Act - пробуем checkout
+            ViewResult result = target.Checkout(cart, new ShippingDetails());
+
+            // Assert - проверяем, что заказ прошел к процессу.
+            mock.Verify(m =>
+               m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Once());
+
+            // Assert - проверяем, что метод возвращает Completed-представление.
+            Assert.AreEqual("Completed", result.ViewName);
+
+            // Assert - проверяем, что мы передаём допустимую модель в представление.
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+
+        }
     }
 }
