@@ -241,8 +241,7 @@ namespace SportsStore.UnitTests
             Assert.AreEqual("Completed", result.ViewName);
 
             // Assert - проверяем, что мы передаём допустимую модель в представление.
-            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
-
+            Assert.AreEqual(true, result.ViewData.ModelState.IsValid);
         }
     }
 }
