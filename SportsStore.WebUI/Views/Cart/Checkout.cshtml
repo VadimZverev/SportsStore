@@ -8,6 +8,8 @@
 Пожалуйста, введите свои данные, и мы отправим товар прямо сейчас!
 @using (Html.BeginForm())
 {
+    @Html.ValidationSummary()
+
     <h3>Доставить</h3>
     <div>Имя: @Html.EditorFor(x => x.Name)</div>
     <h3>Aдрес</h3>

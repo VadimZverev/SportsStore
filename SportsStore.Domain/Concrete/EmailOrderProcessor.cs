@@ -57,7 +57,7 @@ namespace SportsStore.Domain.Concrete
                 foreach (var line in cart.Lines)
                 {
                     var subtotal = line.Product.Price * line.Quantity;
-                    body.AppendFormat($"{line.Quantity} x {line.Product.Name} (subtotal: {subtotal:c}");
+                    body.AppendFormat($"{line.Quantity} x {line.Product.Name} (subtotal: {subtotal:c}) ");
                 }
 
                 body.AppendFormat($"Total order value: {cart.ComputeTotalValue():c}")
