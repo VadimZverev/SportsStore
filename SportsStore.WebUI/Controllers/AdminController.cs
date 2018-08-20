@@ -28,5 +28,22 @@ namespace SportsStore.WebUI.Controllers
                 .FirstOrDefault(p => p.ProductID == productId);
             return View(product);
         }
+
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveProduct(product);
+                TempData["message"] = string.Format($"{product.Name} был сохранён");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // Если что-то пошло нетак со значениями данных
+                return View(product);
+            }
+
+        }
     }
 }
