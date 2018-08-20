@@ -6,7 +6,7 @@
 }
 
 <h1>Изменить @Model.Name</h1>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Admin"))
 {
     @Html.EditorForModel()
     <input type="submit" value="Сохранить" />
