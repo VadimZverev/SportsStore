@@ -100,7 +100,7 @@ namespace SportsStore.UnitTests
             Product product = new Product { Name = "Test" };
 
             // Act - пробуем созранить продукт
-            ActionResult result = target.Edit(product);
+            ActionResult result = target.Edit(product, null);
 
             // Assert - проверяемметод на тип результата
             Assert.IsNotInstanceOfType(result, typeof(ViewResult));
@@ -119,7 +119,7 @@ namespace SportsStore.UnitTests
             target.ModelState.AddModelError("error", "error");
 
             // Act - пробуем созранить продукт
-            ActionResult result = target.Edit(product);
+            ActionResult result = target.Edit(product, null);
 
             // Assert - проверяем, что хранилище не было вызвано
             mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
