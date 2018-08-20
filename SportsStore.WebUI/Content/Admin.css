@@ -25,7 +25,7 @@ table.Grid {
 }
 
     table.Grid th.NumericCol, table.Grid th.NumericCol {
-        text-align: right;
+        text-align: left;
         padding-right: 1em;
     }
 

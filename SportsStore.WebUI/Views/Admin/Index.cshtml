@@ -18,13 +18,13 @@
     {
         <tr>
             <td>@item.ProductID</td>
-            <td>@Html.ActionLink(item.Name, "Изменить", new { item.ProductID })</td>
+            <td>@Html.ActionLink(item.Name, "Edit", new { item.ProductID })</td>
             <td class="NumericCol">@item.Price.ToString("c")</td>
             <td>
-                @using (Html.BeginForm("Удалить", "Admin"))
+                @using (Html.BeginForm("Delete", "Admin"))
                 {
                     @Html.Hidden("ProductID", item.ProductID)
-                    <input type="submit" value="Delete" />
+                    <input type="submit" value="Удалить" />
                 }
             </td>
         </tr>
