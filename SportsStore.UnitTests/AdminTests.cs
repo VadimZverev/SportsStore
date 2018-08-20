@@ -7,6 +7,7 @@ using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using System.Linq;
 using SportsStore.WebUI.Controllers;
+using System.Web.Mvc;
 
 namespace SportsStore.UnitTests
 {
@@ -86,6 +87,45 @@ namespace SportsStore.UnitTests
 
             // Assert
             Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void Can_Save_Valid_Changes()
+        {
+            // Arrange - создание имитированного хранилища.
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            // Arrange - создание контроллера
+            AdminController target = new AdminController(mock.Object);
+            // Arrange - создание продукта
+            Product product = new Product { Name = "Test" };
+
+            // Act - пробуем созранить продукт
+            ActionResult result = target.Edit(product);
+
+            // Assert - проверяемметод на тип результата
+            Assert.IsNotInstanceOfType(result, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void Cannot_Save_Invalid_Changes()
+        {
+            // Arrange - создание имитированного хранилища.
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            // Arrange - создание контроллера
+            AdminController target = new AdminController(mock.Object);
+            // Arrange - создание продукта
+            Product product = new Product { Name = "Test" };
+            // Arrange - добавляем ошибку в статус модели.
+            target.ModelState.AddModelError("error", "error");
+
+            // Act - пробуем созранить продукт
+            ActionResult result = target.Edit(product);
+
+            // Assert - проверяем, что хранилище не было вызвано
+            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
+
+            // Assert - проверяемметод на тип результата
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
     }
 }
